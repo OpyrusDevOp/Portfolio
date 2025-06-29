@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
 import SkillCard from "../components/SkillCard";
 import { skillsData, projectsData } from "../Information";
