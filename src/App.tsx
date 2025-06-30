@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProjectsPage from './pages/Projects';
 import AnimatedNavbar from './components/AnimatedNavbar';
 import Footer from './components/Footer';
+import ContactPage from './pages/Contact';
 
 const Portfolio: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const Portfolio: React.FC = () => {
       <Routes>
         <Route element={<HomePage />} path='/' />
         <Route element={<ProjectsPage />} path='/projects' />
+        <Route element={<ContactPage />} path='/cv' />
       </Routes>
 
       <Footer />

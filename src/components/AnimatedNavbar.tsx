@@ -96,8 +96,8 @@ const AnimatedNavbar: React.FC<AnimatedNavbarProps> = ({
         <NavLink to="/projects" className={navLinkClasses}>
           Projets
         </NavLink>
-        <NavLink to="/contact" className={navLinkClasses}>
-          Contact
+        <NavLink to="/cv" className={navLinkClasses}>
+          Mon CV
         </NavLink>
 
         <svg
