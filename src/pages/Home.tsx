@@ -1,6 +1,5 @@
-import ProjectCard from "../components/ProjectCard";
 import SkillCard from "../components/SkillCard";
-import { skillsData, projectsData } from "../Information";
+import { skillsData } from "../Information";
 
 const HomePage = () => {
 
@@ -10,25 +9,6 @@ const HomePage = () => {
 
       {/* Skills Section */}
       <SkillSection />
-
-
-      {/* Projects Section */}
-      <section id="projets" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text ">
-            Projets Réalisés
-          </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projectsData.map((project, index) => (
-              <ProjectCard
-                key={index}
-                {...project}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 
@@ -65,7 +45,7 @@ const PresentationSection = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="text-center mb-16">
         <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text ">
-          Bienvenu, je suis YVES BIDJA BISSA
+          Bienvenu, je suis YVES BIDJA
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
       </div>
@@ -76,17 +56,17 @@ const PresentationSection = () => (
           <div className="prose prose-lg prose-invert">
             <p className="text-slate-300 text-lg leading-relaxed">
               Passionné par l'informatique depuis mon plus jeune âge, je suis actuellement
-              étudiant en <span className="text-blue-400 font-semibold">License Informatique - Produits et Services Multimédia</span>
-              à l'Université de Franche-Comté STGI.
+              étudiant en License Informatique - Produits et Services Multimédia
+              à <span className="text-purple-400 font-semibold">l'Université de Franche-Comté STGI.</span>
             </p>
 
             <p className="text-slate-300 text-lg leading-relaxed">
-              Mon parcours m'a mené du <span className="text-purple-400 font-semibold">Cameroun</span> à la
-              <span className="text-purple-400 font-semibold"> France</span>, enrichissant ma vision du développement
+              Mon parcours m'a mené du Cameroun à la
+              France, enrichissant ma vision du développement
               logiciel à travers différentes cultures technologiques. Je me spécialise dans le
-              <span className="text-blue-400 font-semibold"> développement full-stack</span>,
-              les <span className="text-blue-400 font-semibold">applications mobiles</span> et
-              la <span className="text-blue-400 font-semibold">création de jeux vidéo</span>.
+              développement full-stack,
+              les applications mobiles et
+              la création de jeux vidéo.
             </p>
 
             <p className="text-slate-300 text-lg leading-relaxed">
@@ -201,7 +181,7 @@ const PresentationSection = () => (
         </div>
       </div>
     </div>
-  </section>
+  </section >
 )
 
 export default HomePage;

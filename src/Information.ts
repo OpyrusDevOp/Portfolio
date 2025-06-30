@@ -1,5 +1,7 @@
-import { Monitor, Smartphone, Gamepad2, Database, Server, Code, Mail, Phone, Github, LocateIcon } from "lucide-react";
+import { Monitor, Smartphone, Gamepad2, Database, Server, Code, Mail, Phone, Github, LocateIcon, Brain, Package } from "lucide-react";
 import type { ContactCardProps } from "./types/props";
+import type { Category } from "./types";
+
 
 
 export const skillsData = [
@@ -11,7 +13,7 @@ export const skillsData = [
   {
     icon: Smartphone,
     title: "Mobile & Desktop",
-    skills: ["MAUI", "WPF", "Flutter", "C/C++ (QT)"]
+    skills: ["MAUI", "WPF", "Flutter", "QT", "React-Native"]
   },
   {
     icon: Gamepad2,
@@ -21,17 +23,17 @@ export const skillsData = [
   {
     icon: Database,
     title: "Bases de Données",
-    skills: ["PostgreSQL", "MySQL", "SQL"]
+    skills: ["PostgreSQL", "Sqlite", "MongoDb", "SQL"]
   },
   {
     icon: Server,
     title: "DevOps & Outils",
-    skills: ["Docker", "Jenkins", "Git", "Linux"]
+    skills: ["Docker", "Jenkins", "Git", "Linux", "GithubAction"]
   },
   {
     icon: Code,
     title: "Langages",
-    skills: ["Python", "JavaScript", "Dart", "C/C++"]
+    skills: ["Javascript/Typescript", "C#", "Dart", "C++", "Python"]
   }
 ];
 
@@ -81,4 +83,19 @@ export const contactData: ContactCardProps[] = [
     value: "OpyrusDevOp",
     link: "https://github.com/OpyrusDevOp"
   }
+];
+
+
+// Vos projets - à adapter selon vos vrais projets
+
+
+
+export const categories: Category[] = [
+  { id: 'all', name: 'Tous les projets', icon: Package, color: 'text-slate-400' },
+  { id: 'web', name: 'Web', icon: Monitor, color: 'text-blue-400' },
+  { id: 'mobile', name: 'Mobile', icon: Smartphone, color: 'text-green-400' },
+  { id: 'desktop', name: 'Desktop', icon: Monitor, color: 'text-purple-400' },
+  { id: 'game', name: 'Jeux', icon: Gamepad2, color: 'text-red-400' },
+  { id: 'library', name: 'Librairies', icon: Code, color: 'text-yellow-400' },
+  { id: 'ai', name: 'IA', icon: Brain, color: 'text-pink-400' },
 ];

@@ -5,6 +5,14 @@ export interface AnimatedNavbarProps {
   onNavigate?: (section: string) => void;
 }
 
+export interface SimpleCodeBlockProps {
+  code: string;
+  language: string;
+  title?: string;
+  fileName?: string;
+}
+
+
 export interface SkillCardProps {
   icon: LucideIcon;
   title: string;
