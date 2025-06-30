@@ -18,7 +18,6 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   title,
   fileName,
   showLineNumbers = true,
-  maxHeight = "400px"
 }) => {
   const [isCopied, setIsCopied] = useState(false);
 
