@@ -37,14 +37,14 @@ const SkillSection = () => (
 
 const PresentationSection = () => (
 
-  <section id="à-propos" className="py-22 relative overflow-hidden">
+  <section id="à-propos" className="py-35 relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-800/50"></div>
     <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="text-center mb-16">
-        <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text ">
+        <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
           Bienvenu, je suis YVES BIDJA
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
