@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+              nodejs('Node24') {
                 sh 'npm run build'
+              }
             }
         }
 
