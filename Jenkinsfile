@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        NODE_VERSION = '24.6.0'
+    }
+
+
 
     tools {
         nodejs "${NODE_VERSION}"
