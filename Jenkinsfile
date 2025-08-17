@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    node {
-        env.NODEJS_HOME = "${tool 'Node 24.x'}"
-        // on linux / mac
-        env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
-        // on windows
-        sh 'npm --version'
+    
+    tools {
+      nodejs 'Node24'
     }
+
     stages {
         stage('Build') {
             steps {
