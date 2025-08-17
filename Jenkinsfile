@@ -6,16 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-              nodejs(nodeJSInstallationName: 'Node24') {
-                    sh 'npm config ls'
-                }
-              // nodejs('Node24') {
-              //   sh 'npm install'
-              // }
-            }
-        }
+        
 stage('Install Dependencies') {
             steps {
               nodejs('Node24') {
@@ -34,6 +25,7 @@ stage('Install Dependencies') {
 
         stage('Deploy') {
             steps {
+              nodejs('Node24') {
                 // copy dist/ to a serving directory
                 sh '''
                 mkdir -p ~/portfolio-deploy
@@ -42,6 +34,7 @@ stage('Install Dependencies') {
                 pm2 serve ~/portfolio-deploy 5173 --name portfolio --spa
                 pm2 save
                 '''
+              }
             }
         }
         // stage('Deploy') {
