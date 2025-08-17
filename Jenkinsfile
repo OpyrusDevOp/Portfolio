@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_VERSION = 'lts/*'
-    }
 
     tools {
         nodejs "${NODE_VERSION}"
@@ -12,7 +9,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: 'git@github.com:YOUR_USERNAME/YOUR_PORTFOLIO_REPO.git'
+                git branch: 'main', url: 'git@github.com:OpyrusDevOp/Porfolio.git'
             }
         }
 
