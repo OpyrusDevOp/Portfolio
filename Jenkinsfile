@@ -1,18 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Clone') {
-            steps {
-                git branch: 'main', url: 'git@github.com:OpyrusDevOp/Porfolio.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'npm run build'
