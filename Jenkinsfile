@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-              nodejs('Node24') {
-                sh 'npm install'
-              }
               nodejs(nodeJSInstallationName: 'Node24') {
                     sh 'npm config ls'
                 }
+              // nodejs('Node24') {
+              //   sh 'npm install'
+              // }
             }
         }
 
