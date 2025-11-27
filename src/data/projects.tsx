@@ -1,6 +1,7 @@
 import type { Project } from "../types";
 import imag from "../assets/imag_1.png";
 import messaging from "../assets/messaging_app.png"
+import motion_sync from "../assets/mosyn.png"
 import neobuild from "../assets/neobuild.png"
 import taskoria from "../assets/taskoria.png"
 import harmonia from "../assets/harmonia.png"
@@ -9,6 +10,76 @@ import CodeBlock from "../components/CodeBlock";
 
 
 export const projects: Project[] = [
+  {
+    id: "0",
+    title: "Motion Syncher",
+    description: "C’est une application pilotée par l’IA pour un déclencheur d’action basé sur le mouvement. Avec l’utilisation d’une caméra alimentée par IA, vous pourrez programmer votre propre chorégraphie où les mouvements clés déclenchent une action déterminée.",
+    longDescription: (<><article className="project-showcase">
+      <header>
+        <h1>Motion Syncher</h1>
+        <p className="tagline">Bridging the gap between physical movement and digital action with AI.</p>
+      </header>
+
+      <section className="overview">
+        <h2>Project Overview</h2>
+        <p>
+          <strong>Motion Syncher</strong> is a sophisticated AI-driven application designed to transform a standard camera feed into a powerful, programmable input device. Unlike traditional motion detectors that simply sense activity, this system understands <em>specific</em> movements.
+        </p>
+        <p>
+          Users can record their own custom gestures—like a wave, a specific dance move, or a hand signal—and link them to digital actions. This enables the creation of complex "choreographies" where a sequence of physical movements can control software, play media, or interact with other systems in real-time.
+        </p>
+      </section>
+
+      <section className="features">
+        <h2>Key Features</h2>
+        <ul>
+          <li>
+            <strong>Custom Gesture Recording:</strong> Train the system on the fly by recording your own movements. The system captures the temporal dynamics of pose keypoints to create unique gesture signatures.
+          </li>
+          <li>
+            <strong>Real-Time Pose Estimation:</strong> Leverages <strong>Luxonis OAK hardware</strong> (OAK-1, OAK-D) for high-performance, edge-based inference, ensuring low latency.
+          </li>
+          <li>
+            <strong>Choreography Engine:</strong> A visual interface for sequencing multiple movements together to create complex interaction flows and logic.
+          </li>
+          <li>
+            <strong>Dynamic Action Triggers:</strong> Detected movements can trigger diverse actions, such as playing sound effects, logging data, or executing custom scripts.
+          </li>
+          <li>
+            <strong>Visual Feedback:</strong> Features a real-time visualizer overlaying pose skeletons and detection status for immediate feedback.
+          </li>
+        </ul>
+      </section>
+
+      <section className="technical">
+        <h2>Technical Implementation</h2>
+        <p>
+          Built with <strong>Python</strong> and <strong>PySide6 (Qt)</strong>, the application features a modern, responsive desktop interface. The core logic employs <strong>DepthAI</strong> for interfacing with OAK devices to retrieve pose landmarks.
+        </p>
+        <p>
+          Movement matching is achieved using <strong>Dynamic Time Warping (DTW)</strong> algorithms, which robustly compare live input against stored gesture templates, allowing for natural variations in speed and timing while maintaining high accuracy. Data persistence is managed via <strong>SQLite</strong>.
+        </p>
+      </section>
+
+      <section className="applications">
+        <h2>Potential Applications</h2>
+        <ul>
+          <li><strong>Interactive Art & Performance:</strong> Triggering audio-visual effects through dance and movement.</li>
+          <li><strong>Smart Home Control:</strong> Contactless control of devices using hand or body gestures.</li>
+          <li><strong>Accessibility:</strong> Alternative input methods for users with limited mobility.</li>
+          <li><strong>Gaming:</strong> Immersive, motion-controlled gaming experiences without specialized controllers.</li>
+        </ul>
+      </section>
+    </article>
+    </>),
+    technologies: ['Python', 'Qt', 'Pyside'],
+    githubUrl: "https://github.com/OpyrusDevOp/Motion_Syncher",
+    category: "ai",
+    featured: true,
+    imageUrl: motion_sync,
+    date: "2025-09",
+    status: "in-progress"
+  },
   {
     id: '1',
     title: 'Duellist',
@@ -423,7 +494,6 @@ server.Start();`}
     date: '2025-03',
     status: 'completed'
   },
-  // Ajoutez vos autres projets ici...
   {
     id: '10',
     title: 'Portfolio React',
@@ -436,5 +506,4 @@ server.Start();`}
     date: '2025-01',
     status: 'in-progress'
   },
-  // Vous pouvez ajouter jusqu'à 10+ projets
 ];

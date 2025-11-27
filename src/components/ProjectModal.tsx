@@ -28,7 +28,6 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                 <iframe
                   src={project.videoUrl.replace('youtu.be/', 'youtube.com/embed/')}
                   className="w-full h-full"
-                  frameBorder="0"
                   allowFullScreen
                 />
               </div>

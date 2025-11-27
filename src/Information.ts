@@ -13,7 +13,7 @@ export const skillsData = [
   {
     icon: Smartphone,
     title: "Mobile & Desktop",
-    skills: ["MAUI", "WPF", "Flutter", "QT", "React-Native"]
+    skills: ["MAUI", "WPF", "Flutter", "QT", "Pyside", "React-Native"]
   },
   {
     icon: Gamepad2,
