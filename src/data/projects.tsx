@@ -17,57 +17,55 @@ export const projects: Project[] = [
     longDescription: (<><article className="project-showcase">
       <header>
         <h1>Motion Syncher</h1>
-        <p className="tagline">Bridging the gap between physical movement and digital action with AI.</p>
+        <p className="tagline">Combler le fossé entre mouvement physique et action numérique avec l’IA.</p>
       </header>
 
       <section className="overview">
-        <h2>Project Overview</h2>
+        <h2>Aperçu du projet</h2>
         <p>
-          <strong>Motion Syncher</strong> is a sophisticated AI-driven application designed to transform a standard camera feed into a powerful, programmable input device. Unlike traditional motion detectors that simply sense activity, this system understands <em>specific</em> movements.
-        </p>
+          <strong>Motion Syncher</strong> est une application sophistiquée basée sur l’IA conçue pour transformer un flux de caméra standard en un périphérique d’entrée puissant et programmable. Contrairement aux détecteurs de mouvement traditionnels qui détectent simplement l’activité, ce système comprend des mouvements spécifiques.        </p>
         <p>
-          Users can record their own custom gestures—like a wave, a specific dance move, or a hand signal—and link them to digital actions. This enables the creation of complex "choreographies" where a sequence of physical movements can control software, play media, or interact with other systems in real-time.
+          Les utilisateurs peuvent enregistrer leurs propres gestes personnalisés—comme une vague, un mouvement de danse spécifique ou un signal de la main — et les lier à des actions numériques. Cela permet la création de « chorégraphies » complexes où une séquence de mouvements physiques peut contrôler un logiciel, jouer des médias ou interagir avec d’autres systèmes en temps réel.
         </p>
       </section>
 
       <section className="features">
-        <h2>Key Features</h2>
+        <h2>Principales caractéristiques</h2>
         <ul>
           <li>
-            <strong>Custom Gesture Recording:</strong> Train the system on the fly by recording your own movements. The system captures the temporal dynamics of pose keypoints to create unique gesture signatures.
+            <strong>Enregistrement de gestes personnalisés :</strong> entraînez le système à la volée en enregistrant vos propres mouvements. Le système capture la dynamique temporelle des points clés de pose pour créer des signatures gestuelles uniques.          </li>
+          <li>
+            <strong>Estimation de pose en temps réel :</strong> Exploite le matériel <strong>Luxonis OAK</strong> (OAK-1, OAK-D) pour une inférence haute performance en périphérie, garantissant une faible latence.
           </li>
           <li>
-            <strong>Real-Time Pose Estimation:</strong> Leverages <strong>Luxonis OAK hardware</strong> (OAK-1, OAK-D) for high-performance, edge-based inference, ensuring low latency.
+            <strong>Moteur de chorégraphie :</strong> Une interface visuelle pour séquencer plusieurs mouvements ensemble afin de créer des flux d'interaction et une logique complexes.
           </li>
           <li>
-            <strong>Choreography Engine:</strong> A visual interface for sequencing multiple movements together to create complex interaction flows and logic.
+            <strong>Déclencheurs d'action dynamiques :</strong> Les mouvements détectés peuvent déclencher diverses actions, telles que la lecture d'effets sonores, l'enregistrement de données ou l'exécution de scripts personnalisés.
           </li>
           <li>
-            <strong>Dynamic Action Triggers:</strong> Detected movements can trigger diverse actions, such as playing sound effects, logging data, or executing custom scripts.
-          </li>
-          <li>
-            <strong>Visual Feedback:</strong> Features a real-time visualizer overlaying pose skeletons and detection status for immediate feedback.
+            <strong>Retour visuel :</strong> Dispose d'un visualiseur en temps réel superposant les squelettes de pose et l'état de détection pour un retour immédiat.
           </li>
         </ul>
       </section>
 
       <section className="technical">
-        <h2>Technical Implementation</h2>
+        <h2>Implémentation technique</h2>
         <p>
-          Built with <strong>Python</strong> and <strong>PySide6 (Qt)</strong>, the application features a modern, responsive desktop interface. The core logic employs <strong>DepthAI</strong> for interfacing with OAK devices to retrieve pose landmarks.
+          Construit avec <strong>Python</strong> et <strong>PySide6 (Qt)</strong>, l'application dispose d'une interface de bureau moderne et réactive. La logique centrale utilise <strong>DepthAI</strong> pour s'interfacer avec les appareils OAK afin de récupérer les repères de pose.
         </p>
         <p>
-          Movement matching is achieved using <strong>Dynamic Time Warping (DTW)</strong> algorithms, which robustly compare live input against stored gesture templates, allowing for natural variations in speed and timing while maintaining high accuracy. Data persistence is managed via <strong>SQLite</strong>.
+          La correspondance des mouvements est réalisée à l'aide d'algorithmes de <strong>Dynamic Time Warping (DTW)</strong>, qui comparent de manière robuste l'entrée en direct aux modèles de gestes stockés, permettant des variations naturelles de vitesse et de timing tout en maintenant une grande précision. La persistance des données est gérée via <strong>SQLite</strong>.
         </p>
       </section>
 
       <section className="applications">
-        <h2>Potential Applications</h2>
+        <h2>Applications potentielles</h2>
         <ul>
-          <li><strong>Interactive Art & Performance:</strong> Triggering audio-visual effects through dance and movement.</li>
-          <li><strong>Smart Home Control:</strong> Contactless control of devices using hand or body gestures.</li>
-          <li><strong>Accessibility:</strong> Alternative input methods for users with limited mobility.</li>
-          <li><strong>Gaming:</strong> Immersive, motion-controlled gaming experiences without specialized controllers.</li>
+          <li><strong>Art interactif et performance :</strong> Déclenchement d'effets audiovisuels par la danse et le mouvement.</li>
+          <li><strong>Contrôle de la maison intelligente :</strong> Contrôle sans contact des appareils à l'aide de gestes de la main ou du corps.</li>
+          <li><strong>Accessibilité :</strong> Méthodes d'entrée alternatives pour les utilisateurs à mobilité réduite.</li>
+          <li><strong>Jeux vidéo :</strong> Expériences de jeu immersives contrôlées par le mouvement sans contrôleurs spécialisés.</li>
         </ul>
       </section>
     </article>
