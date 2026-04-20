@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import type { AnimatedNavbarProps } from '../types/props';
 import { NavLink, type NavLinkRenderProps } from 'react-router-dom';
+import { useLanguage } from '../i18n';
 
 const AnimatedNavbar: React.FC<AnimatedNavbarProps> = ({
   className = '',
 }) => {
+  const { t } = useLanguage();
   const rectRef = useRef<SVGRectElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -57,20 +59,23 @@ const AnimatedNavbar: React.FC<AnimatedNavbarProps> = ({
       });
     };
 
-    // Event listeners
-    container.addEventListener('mouseenter', handleContainerHover);
-    container.addEventListener('mouseleave', setDefaultState);
-
+    // Store named handler refs so cleanup can remove the exact same functions
+    const elementHandlers = new Map<Element, () => void>();
     navElements.forEach((element) => {
-      element.addEventListener('mouseenter', () => handleElementHover(element));
+      const handler = () => handleElementHover(element);
+      elementHandlers.set(element, handler);
+      element.addEventListener('mouseenter', handler);
       element.addEventListener('mouseleave', setDefaultState);
     });
+
+    container.addEventListener('mouseenter', handleContainerHover);
+    container.addEventListener('mouseleave', setDefaultState);
 
     return () => {
       container.removeEventListener('mouseenter', handleContainerHover);
       container.removeEventListener('mouseleave', setDefaultState);
-      navElements.forEach((element) => {
-        element.removeEventListener('mouseenter', () => handleElementHover(element));
+      elementHandlers.forEach((handler, element) => {
+        element.removeEventListener('mouseenter', handler);
         element.removeEventListener('mouseleave', setDefaultState);
       });
     };
@@ -91,13 +96,13 @@ const AnimatedNavbar: React.FC<AnimatedNavbarProps> = ({
         className="absolute inset-0 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-lg flex flex-row justify-around items-center px-2 hover:bg-slate-800/70 transition-colors duration-500"
       >
         <NavLink to="/" className={navLinkClasses}>
-          Moi
+          {t.nav.home}
         </NavLink>
         <NavLink to="/projects" className={navLinkClasses}>
-          Projets
+          {t.nav.projects}
         </NavLink>
         <NavLink to="/cv" className={navLinkClasses}>
-          Mon CV
+          {t.nav.cv}
         </NavLink>
 
         <svg

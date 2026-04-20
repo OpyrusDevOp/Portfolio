@@ -4,7 +4,9 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  description_en?: string;
   longDescription?: React.ReactNode;
+  longDescription_en?: React.ReactNode;
   technologies: string[];
   category: 'web' | 'mobile' | 'desktop' | 'game' | 'library' | 'ai' | 'other';
   githubUrl?: string;
