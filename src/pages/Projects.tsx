@@ -1,35 +1,40 @@
-import React, { useState, useMemo } from 'react';
-import { Github, ExternalLink, Play, Calendar, Search } from 'lucide-react';
-import { type Project } from '../types';
-import { getCategories } from '../Information';
-import { projects } from '../data/projects';
-import ProjectCard from '../components/ProjectCard';
-import ProjectModal from '../components/ProjectModal';
-import { getCategoryStyle } from '../utilities';
-import { useLanguage } from '../i18n';
+import React, { useState, useMemo } from "react";
+import { Github, ExternalLink, Play, Calendar, Search } from "lucide-react";
+import { type Project } from "../types";
+import { getCategories } from "../Information";
+import { projects } from "../data/projects";
+import ProjectCard from "../components/ProjectCard";
+import ProjectModal from "../components/ProjectModal";
+import { getCategoryStyle } from "../utilities";
+import { useLanguage } from "../i18n";
 
 const ProjectsPage: React.FC = () => {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const categories = getCategories(t);
 
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'web' | 'mobile' | 'desktop' | 'game' | 'library' | 'ai'>('all');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<
+    "all" | "web" | "mobile" | "desktop" | "game" | "library" | "ai"
+  >("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter(project => {
-      const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
+    return projects.filter((project) => {
+      const matchesCategory =
+        selectedCategory === "all" || project.category === selectedCategory;
       const search = searchTerm.toLowerCase();
       const matchesSearch =
         project.title.toLowerCase().includes(search) ||
         project.description.toLowerCase().includes(search) ||
         (project.description_en?.toLowerCase().includes(search) ?? false) ||
-        project.technologies.some(tech => tech.toLowerCase().includes(search));
+        project.technologies.some((tech) =>
+          tech.toLowerCase().includes(search)
+        );
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchTerm]);
 
-  const featuredProjects = projects.filter(p => p.featured);
+  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white pt-20">
@@ -44,7 +49,9 @@ const ProjectsPage: React.FC = () => {
           </p>
           <div className="flex items-center justify-center space-x-4">
             <span className="text-slate-400">{t.projects.total}</span>
-            <span className="text-2xl font-bold text-blue-400">{projects.length}</span>
+            <span className="text-2xl font-bold text-blue-400">
+              {projects.length}
+            </span>
             <span className="text-slate-400">{t.projects.projectsLabel}</span>
           </div>
         </div>
@@ -75,7 +82,10 @@ const ProjectsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
             <div className="relative max-w-md mx-auto">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
+                size={20}
+              />
               <input
                 type="text"
                 placeholder={t.projects.searchPlaceholder}
@@ -94,15 +104,22 @@ const ProjectsPage: React.FC = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive
-                    ? 'bg-blue-600 text-white border border-blue-500'
-                    : 'bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-600'
-                    }`}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                    isActive
+                      ? "bg-blue-600 text-white border border-blue-500"
+                      : "bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-600"
+                  }`}
                 >
-                  <Icon size={16} className={isActive ? 'text-white' : category.color} />
+                  <Icon
+                    size={16}
+                    className={isActive ? "text-white" : category.color}
+                  />
                   <span>{category.name}</span>
                   <span className="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs">
-                    {category.id === 'all' ? projects.length : projects.filter(p => p.category === category.id).length}
+                    {category.id === "all"
+                      ? projects.length
+                      : projects.filter((p) => p.category === category.id)
+                          .length}
                   </span>
                 </button>
               );
@@ -117,14 +134,18 @@ const ProjectsPage: React.FC = () => {
           {filteredProjects.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-slate-300 mb-2">{t.projects.noResults}</h3>
+              <h3 className="text-xl font-semibold text-slate-300 mb-2">
+                {t.projects.noResults}
+              </h3>
               <p className="text-slate-400">{t.projects.noResultsHint}</p>
             </div>
           ) : (
             <>
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-bold text-white">
-                  {selectedCategory === 'all' ? t.projects.allProjects : categories.find(c => c.id === selectedCategory)?.name}
+                  {selectedCategory === "all"
+                    ? t.projects.allProjects
+                    : categories.find((c) => c.id === selectedCategory)?.name}
                 </h2>
                 <span className="text-slate-400">
                   {filteredProjects.length} {t.projects.projectsLabel}
@@ -155,10 +176,16 @@ const ProjectsPage: React.FC = () => {
   );
 };
 
-const FeaturedProjectCard: React.FC<{ project: Project; onClick: () => void }> = ({ project, onClick }) => {
+const FeaturedProjectCard: React.FC<{
+  project: Project;
+  onClick: () => void;
+}> = ({ project, onClick }) => {
   const { lang, t } = useLanguage();
-  const description = lang === 'en' && project.description_en ? project.description_en : project.description;
-  const dateLocale = lang === 'fr' ? 'fr-FR' : 'en-US';
+  const description =
+    lang === "en" && project.description_en
+      ? project.description_en
+      : project.description;
+  const dateLocale = lang === "fr" ? "fr-FR" : "en-US";
 
   return (
     <div
@@ -171,13 +198,20 @@ const FeaturedProjectCard: React.FC<{ project: Project; onClick: () => void }> =
             <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
               {project.title}
             </h3>
-            <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryStyle(project.category)}`}>
+            <span
+              className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryStyle(
+                project.category
+              )}`}
+            >
               {project.category}
             </span>
           </div>
           <div className="text-slate-400 text-sm">
             <Calendar size={16} className="inline mr-1" />
-            {new Date(project.date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long' })}
+            {new Date(project.date).toLocaleDateString(dateLocale, {
+              year: "numeric",
+              month: "long",
+            })}
           </div>
         </div>
 
@@ -185,7 +219,10 @@ const FeaturedProjectCard: React.FC<{ project: Project; onClick: () => void }> =
 
         <div className="flex flex-wrap gap-2 mb-6">
           {project.technologies.map((tech, index) => (
-            <span key={index} className="bg-slate-700/50 text-slate-300 px-3 py-1 rounded-full text-sm">
+            <span
+              key={index}
+              className="bg-slate-700/50 text-slate-300 px-3 py-1 rounded-full text-sm"
+            >
               {tech}
             </span>
           ))}

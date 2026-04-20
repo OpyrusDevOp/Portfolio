@@ -1,4 +1,5 @@
-export const en = {
+import type { Translations } from './index';
+export const en: Translations = {
   nav: {
     home: 'Me',
     projects: 'Projects',
@@ -93,4 +94,4 @@ export const en = {
     phone: 'Phone',
     location: 'Location',
   },
-} as const;
+};
