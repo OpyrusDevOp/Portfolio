@@ -113,7 +113,6 @@ const PresentationSection = () => {
                     </div>
                     <p className="text-slate-300 mb-2">{t.home.masterSchool}</p>
                     <p className="text-slate-400 text-sm mb-2">{t.home.masterSpecialty}</p>
-                    <span className="bg-green-600/20 text-green-300 px-2 py-1 rounded text-xs">{t.home.masterCurrent}</span>
                   </div>
                 </div>
               </div>

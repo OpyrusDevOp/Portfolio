@@ -11,6 +11,94 @@ import CodeBlock from "../components/CodeBlock";
 
 export const projects: Project[] = [
   {
+    id: '11',
+    title: 'GestStack',
+    description: 'ERP modulaire (Achats, Inventaire, Finance) en .NET 10 avec architecture clean et client desktop Avalonia',
+    description_en: 'Modular ERP (Procurement, Inventory, Finance) built with .NET 10, clean architecture, and an Avalonia desktop client',
+    longDescription: (
+      <>
+        <p>
+          <strong>GestStack</strong> est un ERP couvrant trois modules : Achats, Inventaire et Finance.
+          C'est mon projet en cours le plus ambitieux, pensé comme une vitrine d'ingénierie logicielle :
+          l'architecture et la qualité du code sont au cœur du projet, autant que les fonctionnalités.
+        </p>
+        <br />
+        <p><strong>Architecture :</strong></p>
+        <ul>
+          <li>Solution .NET 10 en <strong>clean architecture</strong> : API, Application, Domain, Infrastructure</li>
+          <li><code>GestStack.API</code> — API REST ASP.NET Core avec ProblemDetails et codes d'erreur structurés</li>
+          <li><code>GestStack.DesktopClient</code> — client desktop <strong>Avalonia</strong> (thème Fluent)</li>
+          <li>Séparation stricte des responsabilités entre les couches, entités auditables</li>
+        </ul>
+        <br />
+        <p><strong>Fonctionnalités réalisées :</strong></p>
+        <ul>
+          <li>Authentification JWT avec rôles et permissions</li>
+          <li>Assistant de premier démarrage (setup wizard) : création de l'admin et du profil d'entreprise</li>
+          <li>Jeton de setup dédié (second schéma bearer JWT avec audience distincte) sécurisant les routes d'installation</li>
+          <li>Opérations critiques encapsulées dans des transactions base de données</li>
+          <li>Tests unitaires sur les services applicatifs</li>
+        </ul>
+        <br />
+        <p><strong>Pratiques d'ingénierie :</strong></p>
+        <ul>
+          <li>Workflow gitflow : branches <code>feature/*</code>, intégration par pull request uniquement</li>
+          <li>Branches <code>main</code> et <code>development</code> protégées par ruleset GitHub</li>
+          <li>Vérification de bout en bout de chaque fonctionnalité avant merge</li>
+        </ul>
+        <br />
+        <p>
+          En cours : gestion des utilisateurs (création de comptes par l'admin, inscription fermée),
+          puis les modules métier (Inventaire, Achats, Finance) et le client desktop.
+        </p>
+      </>
+    ),
+    longDescription_en: (
+      <>
+        <p>
+          <strong>GestStack</strong> is an ERP covering three modules: Procurement, Inventory, and Finance.
+          It is my most ambitious ongoing project, designed as a software engineering showcase:
+          architecture and code quality are as central to the project as the features themselves.
+        </p>
+        <br />
+        <p><strong>Architecture:</strong></p>
+        <ul>
+          <li>.NET 10 solution following <strong>clean architecture</strong>: API, Application, Domain, Infrastructure</li>
+          <li><code>GestStack.API</code> — ASP.NET Core REST API with ProblemDetails and structured error codes</li>
+          <li><code>GestStack.DesktopClient</code> — <strong>Avalonia</strong> desktop client (Fluent theme)</li>
+          <li>Strict separation of concerns between layers, auditable entities</li>
+        </ul>
+        <br />
+        <p><strong>Implemented features:</strong></p>
+        <ul>
+          <li>JWT authentication with roles and permissions</li>
+          <li>First-run setup wizard: admin account and company profile creation</li>
+          <li>Dedicated setup token (second JWT bearer scheme with a distinct audience) securing installation routes</li>
+          <li>Critical operations wrapped in database transactions</li>
+          <li>Unit tests covering application services</li>
+        </ul>
+        <br />
+        <p><strong>Engineering practices:</strong></p>
+        <ul>
+          <li>Gitflow workflow: <code>feature/*</code> branches, pull-request-only integration</li>
+          <li><code>main</code> and <code>development</code> branches protected by a GitHub ruleset</li>
+          <li>End-to-end verification of every feature before merge</li>
+        </ul>
+        <br />
+        <p>
+          In progress: user management (admin-created accounts, closed registration),
+          then the business modules (Inventory, Procurement, Finance) and the desktop client.
+        </p>
+      </>
+    ),
+    technologies: ['C#', '.NET 10', 'ASP.NET Core', 'Avalonia', 'Clean Architecture', 'JWT'],
+    category: 'desktop',
+    githubUrl: 'https://github.com/OpyrusDevOp/GestStack',
+    featured: true,
+    date: '2026-07',
+    status: 'in-progress'
+  },
+  {
     id: "0",
     title: "Motion Syncher",
     description: "C'est une application pilotée par l'IA pour un déclencheur d'action basé sur le mouvement. Avec l'utilisation d'une caméra alimentée par IA, vous pourrez programmer votre propre chorégraphie où les mouvements clés déclenchent une action déterminée.",
