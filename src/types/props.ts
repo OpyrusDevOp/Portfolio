@@ -1,10 +1,5 @@
 import { type LucideIcon } from 'lucide-react';
 
-export interface AnimatedNavbarProps {
-  className?: string;
-  onNavigate?: (section: string) => void;
-}
-
 export interface SimpleCodeBlockProps {
   code: string;
   language: string;

@@ -13,13 +13,13 @@ export const getSkillsData = (t: Translations) => [
 ];
 
 export const getCategories = (t: Translations): Category[] => [
-  { id: 'all', name: t.categories.all, icon: Package, color: 'text-slate-400' },
-  { id: 'web', name: t.categories.web, icon: Monitor, color: 'text-blue-400' },
-  { id: 'mobile', name: t.categories.mobile, icon: Smartphone, color: 'text-green-400' },
-  { id: 'desktop', name: t.categories.desktop, icon: Monitor, color: 'text-purple-400' },
-  { id: 'game', name: t.categories.game, icon: Gamepad2, color: 'text-red-400' },
-  { id: 'library', name: t.categories.library, icon: Code, color: 'text-yellow-400' },
-  { id: 'ai', name: t.categories.ai, icon: Brain, color: 'text-pink-400' },
+  { id: 'all', name: t.categories.all, icon: Package, color: 'text-ink-muted' },
+  { id: 'web', name: t.categories.web, icon: Monitor, color: 'text-sky-300' },
+  { id: 'mobile', name: t.categories.mobile, icon: Smartphone, color: 'text-primary' },
+  { id: 'desktop', name: t.categories.desktop, icon: Monitor, color: 'text-violet' },
+  { id: 'game', name: t.categories.game, icon: Gamepad2, color: 'text-rose-300' },
+  { id: 'library', name: t.categories.library, icon: Code, color: 'text-accent' },
+  { id: 'ai', name: t.categories.ai, icon: Brain, color: 'text-fuchsia-300' },
 ];
 
 export const getContactData = (t: Translations): ContactCardProps[] => [

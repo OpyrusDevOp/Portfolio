@@ -1,22 +1,17 @@
 import React from 'react';
 import type { SkillCardProps } from '../types/props';
 
-
 const SkillCard: React.FC<SkillCardProps> = ({ icon: Icon, title, skills }) => (
-  <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-slate-700
-    hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105">
-    <div className="flex items-center mb-4">
-      <Icon className="text-blue-400 mr-3" size={24} />
-      <h3 className="text-xl font-semibold">{title}</h3>
+  <div className="panel panel-hover p-5">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-9 h-9 rounded-md bg-primary/10 border border-primary/25 flex items-center justify-center text-primary">
+        <Icon size={18} />
+      </div>
+      <h3 className="font-mono text-xs text-ink uppercase tracking-widest">{title}</h3>
     </div>
-    <div className="space-y-2">
-      {skills.map((skill, index) => (
-        <span
-          key={index}
-          className="inline-block bg-slate-700 px-3 py-1 rounded-full text-sm mr-2 mb-2"
-        >
-          {skill}
-        </span>
+    <div className="flex flex-wrap gap-1.5">
+      {skills.map(skill => (
+        <span key={skill} className="tag">{skill}</span>
       ))}
     </div>
   </div>

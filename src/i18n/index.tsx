@@ -4,7 +4,7 @@ import { en } from './en';
 
 export type Language = 'fr' | 'en';
 export interface Translations {
-  nav: { home: string; projects: string; cv: string };
+  nav: { home: string; projects: string; contact: string };
   home: {
     title: string; bio1Before: string; bio1Highlight: string; bio2: string;
     bio3Before: string; bio3Company: string; bio3After: string;
@@ -17,6 +17,11 @@ export interface Translations {
     licenseTitle: string; licenseDate: string; licenseSchool: string; licenseSpecialty: string;
     bachelorTitle: string; bachelorDate: string; bachelorSchool: string; bachelorCountry: string;
     ctaQuestion: string; ctaButton: string;
+    availableBadge: string; role: string; viewProjects: string;
+    terminal: string[];
+    statLanguages: string;
+    aboutTitle: string; interests: string[]; quickFacts: string; facts: [string, string][];
+    typeEducation: string; typeWork: string; current: string;
   };
   skills: { sectionTitle: string; webDev: string; mobile: string; games: string; databases: string; devops: string; languages: string };
   categories: { all: string; web: string; mobile: string; desktop: string; game: string; library: string; ai: string };
@@ -24,12 +29,12 @@ export interface Translations {
     title: string; subtitle: string; total: string; projectsLabel: string; featured: string;
     searchPlaceholder: string; noResults: string; noResultsHint: string; allProjects: string;
     video: string; viewCode: string; viewDemo: string;
+    featuredBadge: string; expand: string; overview: string; media: string;
+    aboutProject: string; techStack: string; category: string; date: string; status: string;
+    statuses: { completed: string; 'in-progress': string; archived: string };
+    close: string;
   };
-  cv: {
-    title: string; subtitle: string; download: string; openNewTab: string; noLangVersion: string;
-    profileLabel: string; frSectionTitle: string; frSectionDesc: string; enSectionTitle: string; enSectionDesc: string;
-  };
-  footer: { title: string; subtitle: string };
+  footer: { title: string; subtitle: string; builtWith: string; tagline: string };
   contact: { phone: string; location: string };
 }
 

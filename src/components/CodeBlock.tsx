@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Copy, Check, Code } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 
 interface CodeBlockProps {
   code: string;
@@ -32,42 +32,36 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   };
 
   return (
-    <div className="bg-slate-900 rounded-lg border border-slate-700 overflow-hidden">
+    <div className="code-shell">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700">
-        <div className="flex items-center space-x-3">
-          <Code size={16} className="text-blue-400" />
-          <div>
-            {title && (
-              <h4 className="text-sm font-semibold text-white">{title}</h4>
-            )}
-            {fileName && (
-              <p className="text-xs text-slate-400">{fileName}</p>
-            )}
+      <div className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-line bg-surface/60">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex gap-1.5 shrink-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-danger/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-accent/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-primary/70" />
+          </div>
+          <div className="min-w-0 leading-tight">
+            {title && <h4 className="text-xs font-semibold text-ink truncate">{title}</h4>}
+            {fileName && <p className="text-[11px] text-ink-faint truncate">{fileName}</p>}
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-slate-400 uppercase bg-slate-700 px-2 py-1 rounded">
-            {language}
-          </span>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[10px] text-ink-faint uppercase tracking-widest">{language}</span>
           <button
             onClick={handleCopy}
-            className="flex items-center space-x-1 text-slate-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-slate-700 rounded"
-            title="Copier le code"
+            className="p-1.5 rounded text-ink-faint hover:text-ink hover:bg-surface-2 transition-colors"
+            aria-label="Copy code"
           >
-            {isCopied ? (
-              <Check size={16} className="text-green-400" />
-            ) : (
-              <Copy size={16} />
-            )}
+            {isCopied ? <Check size={14} className="text-primary" /> : <Copy size={14} />}
           </button>
         </div>
       </div>
 
       {/* Code Content */}
       <div className="relative" >
-        <div className="overscroll-contain overflow-scroll">
+        <div className="overscroll-contain overflow-auto">
           <SyntaxHighlighter
             language={language.toLowerCase()}
             style={vscDarkPlus}
@@ -76,14 +70,15 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
               margin: 0,
               padding: '1rem',
               background: 'transparent',
-              fontSize: '14px',
+              fontSize: '13px',
+              fontFamily: "'JetBrains Mono', monospace",
               lineHeight: '1.5',
             }}
             lineNumberStyle={{
               minWidth: '3em',
               paddingRight: '1em',
-              color: '#64748b',
-              borderRight: '1px solid #334155',
+              color: '#5d6d8a',
+              borderRight: '1px solid #1b2842',
               marginRight: '1em',
             }}
           >

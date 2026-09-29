@@ -1,21 +1,23 @@
-import { useLanguage } from '../i18n';
+import { useLanguage, type Language } from '../i18n';
 
-const LanguageSwitcher = () => {
+const LANGS: Language[] = ['fr', 'en'];
+
+const LanguageSwitcher = ({ vertical = false }: { vertical?: boolean }) => {
   const { lang, setLang } = useLanguage();
   return (
-    <div className="bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-lg flex overflow-hidden h-16">
-      <button
-        onClick={() => setLang('fr')}
-        className={`px-4 font-medium text-sm transition-all duration-200 ${lang === 'fr' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700/50'}`}
-      >
-        FR
-      </button>
-      <button
-        onClick={() => setLang('en')}
-        className={`px-4 font-medium text-sm transition-all duration-200 ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700/50'}`}
-      >
-        EN
-      </button>
+    <div className={`flex rounded border border-line overflow-hidden font-mono text-[11px] ${vertical ? 'flex-col' : ''}`}>
+      {LANGS.map(l => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          className={`px-2.5 py-1 uppercase tracking-wider transition-colors ${
+            lang === l ? 'bg-primary text-bg font-bold' : 'text-ink-muted hover:text-ink hover:bg-surface-2'
+          }`}
+        >
+          {l}
+        </button>
+      ))}
     </div>
   );
 };

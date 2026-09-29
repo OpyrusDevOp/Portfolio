@@ -1,266 +1,115 @@
-import React, { useState, useMemo } from "react";
-import { Github, ExternalLink, Play, Calendar, Search } from "lucide-react";
-import { type Project } from "../types";
+import React, { useState, useMemo, useCallback } from "react";
+import { Search } from "lucide-react";
+import { type Category, type Project } from "../types";
 import { getCategories } from "../Information";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import ProjectModal from "../components/ProjectModal";
-import { getCategoryStyle } from "../utilities";
 import { useLanguage } from "../i18n";
 
 const ProjectsPage: React.FC = () => {
   const { t } = useLanguage();
   const categories = getCategories(t);
 
-  const [selectedCategory, setSelectedCategory] = useState<
-    "all" | "web" | "mobile" | "desktop" | "game" | "library" | "ai"
-  >("all");
+  const [selectedCategory, setSelectedCategory] = useState<Category["id"]>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const closeModal = useCallback(() => setSelectedProject(null), []);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      const matchesCategory =
-        selectedCategory === "all" || project.category === selectedCategory;
-      const search = searchTerm.toLowerCase();
-      const matchesSearch =
-        project.title.toLowerCase().includes(search) ||
-        project.description.toLowerCase().includes(search) ||
-        (project.description_en?.toLowerCase().includes(search) ?? false) ||
-        project.technologies.some((tech) =>
-          tech.toLowerCase().includes(search)
-        );
-      return matchesCategory && matchesSearch;
-    });
+    const search = searchTerm.toLowerCase();
+    return projects
+      .filter((project) => {
+        const matchesCategory =
+          selectedCategory === "all" || project.category === selectedCategory;
+        const matchesSearch =
+          project.title.toLowerCase().includes(search) ||
+          project.description.toLowerCase().includes(search) ||
+          (project.description_en?.toLowerCase().includes(search) ?? false) ||
+          project.technologies.some((tech) => tech.toLowerCase().includes(search));
+        return matchesCategory && matchesSearch;
+      })
+      // Featured first, otherwise keep the curated order from data/projects
+      .sort((a, b) => Number(b.featured) - Number(a.featured));
   }, [selectedCategory, searchTerm]);
 
-  const featuredProjects = projects.filter((p) => p.featured);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white pt-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-28 md:pt-32 xl:pt-20 pb-20">
       {/* Header */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text uppercase">
-            {t.projects.title}
-          </h1>
-          <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
-            {t.projects.subtitle}
-          </p>
-          <div className="flex items-center justify-center space-x-4">
-            <span className="text-slate-400">{t.projects.total}</span>
-            <span className="text-2xl font-bold text-blue-400">
-              {projects.length}
-            </span>
-            <span className="text-slate-400">{t.projects.projectsLabel}</span>
-          </div>
+      <div className="mb-10">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="font-mono text-primary text-sm">~/projects</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-primary/40 to-transparent" />
+          <span className="font-mono text-xs text-ink-faint">
+            {t.projects.total} <span className="text-primary font-bold">{projects.length}</span> {t.projects.projectsLabel}
+          </span>
         </div>
-      </section>
+        <h1 className="font-display text-4xl md:text-6xl font-black uppercase mb-4">
+          <span className="gradient-text">{t.projects.title}</span>
+        </h1>
+        <p className="text-ink-muted max-w-2xl leading-relaxed">{t.projects.subtitle}</p>
+      </div>
 
-      {/* Featured projects */}
-      {featuredProjects.length > 0 && (
-        <section className="py-16 bg-slate-800/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text uppercase">
-              {t.projects.featured}
-            </h2>
-            <div className="grid lg:grid-cols-2 gap-8">
-              {featuredProjects.map((project) => (
-                <FeaturedProjectCard
-                  key={project.id}
-                  project={project}
-                  onClick={() => setSelectedProject(project)}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Filters and search */}
-      <section className="py-8 top-16 bg-slate-900/95 backdrop-blur-md z-40 border-y border-slate-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <div className="relative max-w-md mx-auto">
-              <Search
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
-                size={20}
-              />
-              <input
-                type="text"
-                placeholder={t.projects.searchPlaceholder}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-800/80 border border-slate-700 rounded-lg focus:border-blue-500 focus:outline-none text-white placeholder-slate-400"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              const isActive = selectedCategory === category.id;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                    isActive
-                      ? "bg-blue-600 text-white border border-blue-500"
-                      : "bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-600"
-                  }`}
-                >
-                  <Icon
-                    size={16}
-                    className={isActive ? "text-white" : category.color}
-                  />
-                  <span>{category.name}</span>
-                  <span className="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs">
-                    {category.id === "all"
-                      ? projects.length
-                      : projects.filter((p) => p.category === category.id)
-                          .length}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Project list */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-slate-300 mb-2">
-                {t.projects.noResults}
-              </h3>
-              <p className="text-slate-400">{t.projects.noResultsHint}</p>
-            </div>
-          ) : (
-            <>
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold text-white">
-                  {selectedCategory === "all"
-                    ? t.projects.allProjects
-                    : categories.find((c) => c.id === selectedCategory)?.name}
-                </h2>
-                <span className="text-slate-400">
-                  {filteredProjects.length} {t.projects.projectsLabel}
-                </span>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProjects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    onClick={() => setSelectedProject(project)}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </section>
-
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
-    </div>
-  );
-};
-
-const FeaturedProjectCard: React.FC<{
-  project: Project;
-  onClick: () => void;
-}> = ({ project, onClick }) => {
-  const { lang, t } = useLanguage();
-  const description =
-    lang === "en" && project.description_en
-      ? project.description_en
-      : project.description;
-  const dateLocale = lang === "fr" ? "fr-FR" : "en-US";
-
-  return (
-    <div
-      className="bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-[1.02] overflow-hidden group cursor-pointer"
-      onClick={onClick}
-    >
-      <div className="p-8">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-              {project.title}
-            </h3>
-            <span
-              className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryStyle(
-                project.category
-              )}`}
-            >
-              {project.category}
-            </span>
-          </div>
-          <div className="text-slate-400 text-sm">
-            <Calendar size={16} className="inline mr-1" />
-            {new Date(project.date).toLocaleDateString(dateLocale, {
-              year: "numeric",
-              month: "long",
-            })}
-          </div>
+      {/* Search + filters */}
+      <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-10">
+        <div className="relative lg:w-72 shrink-0">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-faint" size={16} />
+          <input
+            type="text"
+            placeholder={t.projects.searchPlaceholder}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 rounded bg-surface/80 border border-line focus:border-primary focus:outline-none text-sm text-ink placeholder-ink-faint font-mono transition-colors"
+          />
         </div>
 
-        <p className="text-slate-300 mb-6 leading-relaxed">{description}</p>
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.technologies.map((tech, index) => (
-            <span
-              key={index}
-              className="bg-slate-700/50 text-slate-300 px-3 py-1 rounded-full text-sm"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center space-x-4">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-300 hover:text-blue-400 transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Github size={18} className="mr-2" />
-              Code
-            </a>
-          )}
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-slate-300 hover:text-green-400 transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ExternalLink size={18} className="mr-2" />
-              Demo
-            </a>
-          )}
-          {project.videoUrl && (
-            <button className="flex items-center text-slate-300 hover:text-red-400 transition-colors">
-              <Play size={18} className="mr-2" />
-              {t.projects.video}
-            </button>
-          )}
+        <div className="flex flex-wrap gap-2">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isActive = selectedCategory === category.id;
+            const count = category.id === "all"
+              ? projects.length
+              : projects.filter((p) => p.category === category.id).length;
+            if (count === 0) return null;
+            return (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                aria-pressed={isActive}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded font-mono text-xs border transition-colors ${
+                  isActive
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-line text-ink-muted hover:border-line-strong hover:text-ink"
+                }`}
+              >
+                <Icon size={13} className={isActive ? "text-primary" : category.color} />
+                {category.name}
+                <span className={isActive ? "text-primary/70" : "text-ink-faint"}>{count}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
+
+      {filteredProjects.length === 0 ? (
+        <div className="text-center py-24 font-mono">
+          <div className="text-4xl mb-4 text-ink-faint">:/</div>
+          <h3 className="text-ink mb-2">{t.projects.noResults}</h3>
+          <p className="text-ink-faint text-sm">{t.projects.noResultsHint}</p>
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onClick={() => setSelectedProject(project)}
+            />
+          ))}
+        </div>
+      )}
+
+      {selectedProject && <ProjectModal project={selectedProject} onClose={closeModal} />}
     </div>
   );
 };

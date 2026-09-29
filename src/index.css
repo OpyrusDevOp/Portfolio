@@ -1,1 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+/* ── Aurora palette ─────────────────────────────────────────────
+   Ink-navy base, mint primary, periwinkle/violet secondary,
+   amber for highlights. Everything else derives from these. */
+@theme {
+  --color-bg: #060910;
+  --color-surface: #0b1120;
+  --color-surface-2: #101a2f;
+  --color-line: #1b2842;
+  --color-line-strong: #2a3b5e;
+
+  --color-ink: #e7edf7;
+  --color-ink-muted: #9aa8c0;
+  --color-ink-faint: #5d6d8a;
+
+  --color-primary: #3ee6c4;
+  --color-primary-strong: #19c9a7;
+  --color-secondary: #8b9cff;
+  --color-violet: #b18cff;
+  --color-accent: #f6b94a;
+  --color-danger: #ff6b81;
+
+  --font-display: 'Exo 2', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-line-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary-strong); }
+
+/* ── Backgrounds ── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(139, 156, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 156, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.aurora-glow {
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(62, 230, 196, 0.10), transparent 70%),
+    radial-gradient(50% 45% at 90% 10%, rgba(139, 156, 255, 0.12), transparent 70%),
+    radial-gradient(60% 50% at 50% 100%, rgba(177, 140, 255, 0.07), transparent 70%);
+}
+
+/* ── Text treatments ── */
+.gradient-text {
+  background: linear-gradient(120deg, var(--color-primary) 0%, var(--color-secondary) 55%, var(--color-violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(62, 230, 196, 0.25), 0 0 44px rgba(62, 230, 196, 0.08);
+}
+
+/* ── Panel with corner accents ── */
+.panel {
+  position: relative;
+  border: 1px solid var(--color-line);
+  /* No backdrop-filter here: dozens of blurred layers over an animated
+     canvas get re-rendered every frame and balloon GPU memory. */
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-radius: 6px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.panel::before,
+.panel::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  transition: border-color 0.25s ease, width 0.25s ease, height 0.25s ease;
+}
+.panel::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--panel-accent, var(--color-primary));
+  border-left: 2px solid var(--panel-accent, var(--color-primary));
+  border-top-left-radius: 6px;
+}
+.panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--panel-accent, var(--color-primary));
+  border-right: 2px solid var(--panel-accent, var(--color-primary));
+  border-bottom-right-radius: 6px;
+}
+.panel-secondary { --panel-accent: var(--color-secondary); }
+.panel-violet { --panel-accent: var(--color-violet); }
+.panel-accent { --panel-accent: var(--color-accent); }
+
+.panel-hover:hover {
+  border-color: var(--color-line-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+}
+.panel-hover:hover::before,
+.panel-hover:hover::after {
+  width: 28px;
+  height: 28px;
+}
+
+/* ── Tag chips ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  padding: 1px 8px;
+  border: 1px solid var(--color-line-strong);
+  background: rgba(139, 156, 255, 0.07);
+  color: #c3ccff;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.tag-primary { border-color: rgba(62, 230, 196, 0.35); background: rgba(62, 230, 196, 0.07); color: #9ff3e1; }
+.tag-violet { border-color: rgba(177, 140, 255, 0.35); background: rgba(177, 140, 255, 0.07); color: #d7c4ff; }
+.tag-accent { border-color: rgba(246, 185, 74, 0.35); background: rgba(246, 185, 74, 0.07); color: #fcd88f; }
+
+/* ── Nav link underline ── */
+.nav-link {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+.nav-link:hover,
+.nav-link.active { color: var(--color-ink); }
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ── Timeline ── */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary) 60%, transparent);
+}
+
+/* ── Terminal / code shells ── */
+.code-shell {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  background: #04060c;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.35s ease both; }
+
+@keyframes overlayIn {
+  from { opacity: 0; transform: scale(0.97) translateY(14px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Rich project descriptions (JSX from data/projects.tsx) ── */
+.rich-text {
+  color: #c4cee0;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+.rich-text h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: 0.25rem;
+}
+.rich-text h2 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-primary);
+  margin: 1.5rem 0 0.6rem;
+}
+.rich-text h3,
+.rich-text h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 1.1rem 0 0.4rem;
+}
+.rich-text p { margin: 0.4rem 0; }
+.rich-text .tagline { color: var(--color-secondary); font-style: italic; }
+.rich-text strong { color: var(--color-ink); font-weight: 600; }
+.rich-text a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.rich-text ul,
+.rich-text ol { margin: 0.4rem 0 0.4rem 0.25rem; }
+.rich-text li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin: 0.25rem 0;
+}
+.rich-text li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+.rich-text :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(139, 156, 255, 0.1);
+  border: 1px solid var(--color-line);
+  color: #c3ccff;
+}
+.rich-text .code-shell { margin: 1rem 0; line-height: 1.5; }
+.rich-text .code-shell h4,
+.rich-text .code-shell p { margin: 0; font-family: inherit; font-size: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
